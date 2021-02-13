@@ -1,10 +1,10 @@
 use fnv::FnvHasher;
 use std::hash::{Hash, Hasher};
-pub struct Bloom1K([u64; 256]);
+pub struct Bloom1K([u64; 128]);
 
 impl Default for Bloom1K {
     fn default() -> Self {
-        Self([0; 256])
+        Self([0; 128])
     }
 }
 
@@ -15,7 +15,7 @@ impl Bloom1K {
     }
 
     pub fn all() -> Self {
-        Self([0xFFFF_FFFF_FFFF_FFFFu64; 256])
+        Self([0xFFFF_FFFF_FFFF_FFFFu64; 128])
     }
 
     pub fn union(&mut self, rhs: Bloom1K) {
@@ -93,5 +93,5 @@ fn main() {
             total += 1;
         }
     }
-    println!("{} / 1000", total - n);
+    println!("n: {}, {} / 1000", n, total - n);
 }
